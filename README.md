@@ -1,3 +1,3 @@
 miospruit.github.io
 
-[my directory](bomb\docs\index.html)
+[Bomb Clicker](bomb\docs\index.html)
