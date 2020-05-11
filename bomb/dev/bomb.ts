@@ -1,56 +1,39 @@
 /// <reference path="gameobject.ts" />
 
-class Bomb extends gameObject{
-    s: number
-    h: number
-    w: number
-    posy: number
-    posx: number
-    
+class Bomb extends GameObject {
+
+    private speed:number;
+           
+    constructor(game:Game) {
+        super(game)
+
+        this.resetPosition();
+
+        this.addEventListener("click", (e) => this.onClick(e as MouseEvent))
         
-    constructor() {
-        super()
-        this.h = window.innerHeight 
-        this.w = window.innerWidth 
-        let foreground  = document.getElementsByTagName("foreground")[0]
-        foreground.appendChild(this);
-        
-        this.posy = this.getRandomNumberBetween(-300,-500)
-        this.posx = this.getRandomNumberBetween(0,this.w)
-        this.s = this.getRandomNumberBetween(2,4)
-        console.log(this.s)
-        let Game = document.getElementsByTagName("game")[0]
-        Game.appendChild(this)
+    }
+
+    private onClick(e:MouseEvent) {
+        this.game.scorePoint();
+        this.resetPosition();
     }
 
     public update():void {
-        this.addEventListener("click", () => this.clickBombs())
-        if(this.posy >= this.h){
-            this.posy = this.getRandomNumberBetween(-300,-500)
-            this.posx = this.getRandomNumberBetween(0,this.w)
-            this.posy += this.s
-            // this.game.destroyBuilding()
+        this.posy += this.speed;
 
-        }else{
-            this.posy += this.s
+        if (this.posy > window.innerHeight) {
+            this.game.destroyBuilding();
+            this.resetPosition();
         }
-        this.draw()
-    }
 
-    public getRandomNumberBetween(min:number,max:number){
-        return Math.floor(Math.random()*(max-min+1)+min);
-    }
-
-    public clickBombs(){
-        this.Game.scorePoint()
-        this.posy = this.getRandomNumberBetween(-300,-500)
-        this.posx = this.getRandomNumberBetween(0,this.w)
-        this.posy += this.s
+        super.update();
 
     }
 
-    public draw(){
-        this.style.transform = `translate(${this.posx}px, ${this.posy}px)`
+    private resetPosition() {
+        this.speed = 1 + Math.floor(Math.random() * 5);
+        this.posy = (Math.random() * -100) - this.clientHeight;
+        this.posx = Math.floor(Math.random() * (window.innerWidth - this.clientWidth));
     }
 }
 

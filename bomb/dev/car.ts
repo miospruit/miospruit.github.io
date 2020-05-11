@@ -1,40 +1,29 @@
 /// <reference path="gameobject.ts" />
-class Car extends gameObject{
-    game: Game;
-    s: number;
-    h: number;
-    w: number;
-    
-    posx: number
-    posy: number
-    
-    constructor() {
-        super()
-        this.h = window.innerHeight 
-        this.w = window.innerWidth 
-        this.s = 1
-        let foreground  = document.getElementsByTagName("foreground")[0]
-        foreground.appendChild(this);
+
+class Car extends GameObject{
         
-        this.posx = this.getRandomNumberBetween(-500,-300)
-        this.posy = 780
+    constructor(game:Game) {
+        super(game)
+        
+        this.posx = -100
+        this.posy = window.innerHeight - this.clientHeight;
+
+        this.addEventListener("click", (e) => this.onClick(e as MouseEvent))
+        
+    }
+
+    private onClick(e:MouseEvent) {
+        this.game.repairBuildings();
     }
 
     public update():void {
-        if(this.posx == this.w){
-            this.posx = this.getRandomNumberBetween(-500,-300)
-        }else{
-            this.posx++
+        this.posx++;
+
+        if (this.posx > window.innerWidth) {
+            this.posx = -100;
         }
-        this.draw()
-    }
-
-    public getRandomNumberBetween(min:number,max:number){
-        return Math.floor(Math.random()*(max-min+1)+min);
-    }
-
-    public draw(){
-        this.style.transform = `translate(${this.posx}px, ${this.posy}px)`
+        
+        super.update();
     }
 }
 
