@@ -6,29 +6,17 @@ class Car extends GameObject {
 
     // Fields
     private game: Game
-    private speed: number = Math.random() * 2 + 1
     private braking: boolean = false
     private stopped: boolean = false
 
-    // Properties
-    public get Speed(): number { return this.speed }
 
-    public get X(): number { return this.x }
-    public set X(value: number) { this.x = value }
-
-    public get Y(): number { return this.y }
-    public set Y(value: number) { this.y = value }
-
-
-    public get width(): number { return this.clientWidth }
-    public get height(): number { return this.clientHeight }
-
-    constructor(yIndex: number, game: Game, gameObject: GameObject) {
-        super(gameObject)
+    constructor(yIndex: number, game: Game) {
+        super()
 
         this.game = game
-        this.X = 0
-        this.Y = (70 * yIndex) + 80
+        this.x = 0
+        this.y = (70 * yIndex) + 80
+        this.speed = Math.random() * 2 + 1
 
         new Wheel(this, 105)  // front wheel 
         new Wheel(this, 20)   // rear wheel 
@@ -41,9 +29,6 @@ class Car extends GameObject {
         parent.appendChild(this)
     }
 
-    public onCollision(): void {
-        throw new Error("Method not implemented.")
-    }
 
     private handleMouseClick(e: MouseEvent) {
         this.braking = true
@@ -59,7 +44,7 @@ class Car extends GameObject {
 
     public move(): void {
         // de snelheid bij de x waarde optellen
-        this.X += this.speed
+        this.x += this.speed
 
         // hier de snelheid verlagen als we aan het afremmen zijn
         if (this.braking) this.speed *= 0.98
@@ -67,11 +52,11 @@ class Car extends GameObject {
 
         if (this.speed == 0 && this.braking && !this.stopped) {
             this.changeColor(80) //green
-            this.game.addScore(this.X)
+            this.game.addScore(this.x)
             this.braking = false
             this.stopped = true
         }
-        super.draw()
+        super.move()
     }
 
     public crash() {
@@ -82,6 +67,13 @@ class Car extends GameObject {
 
     public changeColor(deg: number): void {
         this.style.filter = `hue-rotate(${deg}deg)`
+    }
+
+    public onCollision(gameObject: GameObject): void {
+        if (gameObject instanceof Rock) {
+            this.crash()
+            this.game.gameOver()
+        }
     }
 
 }

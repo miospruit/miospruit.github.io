@@ -1,7 +1,12 @@
+/// <reference path="wheel.ts"/>
+/// <reference path="car.ts"/>
+/// <reference path="rock.ts"/>
+/// <reference path="GameObject.ts"/>
+
 class Game {
 
     // Fields
-    public vehicles: GameObject[] = []
+    private gameobject: GameObject[] = []
     private score: number = 0
     private request: number = 0
     private gameover: boolean = false
@@ -17,13 +22,13 @@ class Game {
     }
 
     private addCarWithRock(index: number) {
-        this.vehicles.push(new Car(index, this, this))
-        this.vehicles.push(new Rock(index, this))
+        this.gameobject.push(new Car(index, this))
+        this.gameobject.push(new Rock(index))
     }
 
     private gameLoop() {
-        for (let vehicle of this.vehicles) {
-            vehicle.move()
+        for (let object of this.gameobject) {
+            object.move()
         }
 
         this.checkCollision()
@@ -32,18 +37,17 @@ class Game {
     }
 
     private checkCollision() {
-        for (let car of this.vehicles) {
-            for (let rock of this.vehicles) {
-                if (this.hasCollision(car, rock)) {
-                    rock.crashed(car.Speed)
-                    car.crash()
-                    this.gameOver()
+        for (const gameobject1 of this.gameobject) {
+            for (const gameobject2 of this.gameobject) {
+                if (gameobject1.hasCollision(gameobject2)) {
+                    gameobject1.onCollision(gameobject2)
                 }
             }
+
         }
     }
 
-    private gameOver(): void {
+    public gameOver(): void {
         this.gameover = true
         document.getElementById("score").innerHTML = "Game Over"
         cancelAnimationFrame(this.request)
@@ -60,12 +64,7 @@ class Game {
         document.getElementById("score").innerHTML = "Score : " + this.score
     }
 
-    private hasCollision(rect1: Car, rect2: Rock): boolean {
-        return (rect1.X < rect2.X + rect2.width &&
-            rect1.X + rect1.width > rect2.X &&
-            rect1.Y < rect2.Y + rect2.height &&
-            rect1.Y + rect1.height > rect2.Y)
-    }
+
 }
 
 // load

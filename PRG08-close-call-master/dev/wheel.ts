@@ -1,8 +1,8 @@
-class Wheel extends HTMLElement{
-                        
-    constructor(car : Car, offsetCarX : number) {
+class Wheel extends HTMLElement {
+
+    constructor(car: Car, offsetCarX: number) {
         super()
-        
+
         this.style.transform = `translate(${offsetCarX}px, 30px)`
 
         car.appendChild(this)
