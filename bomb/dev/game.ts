@@ -1,22 +1,22 @@
 class Game {
-    
+
     private score: number = 0
     private destroyed: number = 0
     private textfield: HTMLElement
     private statusbar: HTMLElement
     private bombs: Bomb[]
-    private car:Car;
+    private car: Car;
 
-    private gameOver:boolean = false;
+    private gameOver: boolean = false;
 
-    private readonly BOMBS:number = 4;
-    
+    private readonly BOMBS: number = 4;
+
     constructor() {
-        this.textfield  = document.getElementsByTagName("textfield")[0] as HTMLElement
-        this.statusbar  = document.getElementsByTagName("bar")[0] as HTMLElement
+        this.textfield = document.getElementsByTagName("textfield")[0] as HTMLElement
+        this.statusbar = document.getElementsByTagName("bar")[0] as HTMLElement
 
         this.bombs = [];
-        
+
         for (let i = 0; i < this.BOMBS; i++) {
             this.bombs.push(new Bomb(this));
         }
@@ -25,12 +25,12 @@ class Game {
         this.car = new Car(this);
 
         console.log("start the game")
-        
+
         // call method gameLoop
         this.gameLoop();
     }
-    
-    private gameLoop():void{
+
+    private gameLoop(): void {
         console.log("updating the game")
 
         for (let i = 0; i < this.BOMBS; i++) {
@@ -38,7 +38,7 @@ class Game {
         }
 
         this.car.update();
-        
+
         // add request animation frame
         if (!this.gameOver) {
             requestAnimationFrame(() => this.gameLoop());
@@ -46,8 +46,8 @@ class Game {
 
     }
 
-    public destroyBuilding(){
-        this.destroyed ++
+    public destroyBuilding() {
+        this.destroyed++
         console.log("buildings destroyed " + this.destroyed)
 
         this.statusbar.style.backgroundPositionX = `${-72 * this.destroyed}px`
@@ -61,12 +61,12 @@ class Game {
         this.destroyed = 0;
         this.statusbar.style.backgroundPositionX = `${-72 * this.destroyed}px`
     }
-       
+
     public scorePoint() {
-        this.score ++
+        this.score++
         this.textfield.innerHTML = "Score: " + this.score
     }
 
-} 
+}
 
 window.addEventListener("load", () => new Game())
