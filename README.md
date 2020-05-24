@@ -1,5 +1,3 @@
-miospruit.github.io
-
 # Mio Spruit Typescript Games
 
 Dit zijn de thuiswerk opdrachten die ik heb gemaakt met typescript. 
@@ -14,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Games
 
 * [Bomb Clicker](bomb\docs\index.html) - Een clicker game waar je op de bommen moet klikken.
-* [Close Call](PRG08-close-call-master/docs/index.html) - Een game waar je bij moet stoppen voordat je tegen de stenen aan rijd.
+* [Close Call](close-call/docs/index.html) - Een game waar je bij moet stoppen voordat je tegen de stenen aan rijd.
 * [Basketball](basketball/docs/index.html) - Een interface implementatie om de ballen te laten stuiteren volgens verschillende manieren.
 
 ## Auteur
