@@ -1,4 +1,4 @@
-
+miospruit.github.io
 
 # Mio Spruit Typescript Games
 
@@ -17,7 +17,7 @@ These instructions will get you a copy of the project up and running on your loc
 * [Close Call](PRG08-close-call-master/docs/index.html) - Een game waar je bij moet stoppen voordat je tegen de stenen aan rijd.
 * [Basketball](basketball/docs/index.html) - Een interface implementatie om de ballen te laten stuiteren volgens verschillende manieren.
 
-## Autuer
+## Auteur
 
 * **Mio Spruit** - *Student* - [CMGT](https://www.hogeschoolrotterdam.nl/opleidingen/bachelor/creative-media-and-game-technologies/voltijd/)
 
